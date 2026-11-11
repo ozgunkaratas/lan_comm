@@ -1,0 +1,5 @@
+# Debug variant of linux-gcc: same compiler/C++ settings, Debug build type.
+include(linux-gcc)
+
+[settings]
+build_type=Debug

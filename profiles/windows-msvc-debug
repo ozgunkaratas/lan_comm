@@ -1,0 +1,5 @@
+# Debug variant of windows-msvc: same compiler/C++ settings, Debug build type.
+include(windows-msvc)
+
+[settings]
+build_type=Debug
