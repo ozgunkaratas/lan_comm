@@ -1,0 +1,5 @@
+# Debug variant of windows-mingw: same compiler/C++ settings, Debug build type.
+include(windows-mingw)
+
+[settings]
+build_type=Debug

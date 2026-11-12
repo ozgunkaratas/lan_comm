@@ -1,0 +1,25 @@
+# MSYS2 UCRT64 GCC on Windows. Output: build/Release_Mingw
+# One-time setup in the "MSYS2 UCRT64" shell:  pacman -S mingw-w64-ucrt-x86_64-ninja
+# Build (from PowerShell):  conan build . -pr:a profiles/windows-mingw --build=missing
+[settings]
+os=Windows
+arch=x86_64
+compiler=gcc
+compiler.version=16
+compiler.libcxx=libstdc++11
+compiler.threads=posix
+compiler.exception=seh
+compiler.cppstd=20
+build_type=Release
+
+[conf]
+# Ninja instead of Visual Studio as CMake generator (comes from MSYS2, see above).
+tools.cmake.cmaketoolchain:generator=Ninja
+tools.build:compiler_executables={"c": "C:/msys64/ucrt64/bin/gcc.exe", "cpp": "C:/msys64/ucrt64/bin/g++.exe"}
+# Link libstdc++, libgcc and winpthread into the .exe, so it starts without
+# MSYS2's DLLs on PATH (double-click, plain PowerShell, other machines).
+tools.build:exelinkflags=["-static"]
+
+[buildenv]
+# Compiler, assembler, linker and ninja for the build.
+PATH=+(path)C:/msys64/ucrt64/bin
