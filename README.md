@@ -37,9 +37,16 @@ conan build . -pr:a profiles/windows-msvc
 conan build . -pr:a profiles/windows-msvc-debug
 ```
 
-Binaries land in `build/Release/apps/...` (Linux) or `build/apps/.../Release` (Windows).
-For IDE work: `conan install .` then `cmake --preset conan-default` (Windows) or
-`conan-release` (Linux).
+Build folders are named after the toolchain, so outputs never mix:
+
+| Toolchain | Binaries | CMake presets |
+|---|---|---|
+| Linux / WSL (GCC) | `build/Release_Linux/apps/...`, `build/Debug_Linux/apps/...` | `conan-linux-release`, `conan-linux-debug` |
+| MSYS2 (MinGW GCC) | `build/Release_Mingw/apps/...`, `build/Debug_Mingw/apps/...` | `conan-mingw-release`, `conan-mingw-debug` |
+| Visual Studio (MSVC) | `build/Windows/apps/.../Release`, `build/Windows/apps/.../Debug` (one solution: `build/Windows/lan-comm.slnx`) | `conan-default` (configure), `conan-release` / `conan-debug` (build) |
+
+For IDE work: `conan install .` then e.g. `cmake --preset conan-default` (Windows) or
+`cmake --preset conan-linux-release` (Linux).
 
 ## Run
 
